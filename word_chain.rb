@@ -5,15 +5,20 @@ class WordChainer
   def initialize(dictionary_file_name)
     @dictionary = File.readlines(dictionary_file_name).map(&:chomp)
     @dictionary = Set.new(@dictionary)
+
   end
 # src => duck
-  def run(src, target)
+  def run
+    puts "Please enter a start word for your chain"
+    src = gets.chomp
+    puts "Please enter a target for the chain to stop at"
+    target = gets.chomp
     @current_words = [src]
     @all_seen_words = { src => nil }
     until @current_words.empty? || @all_seen_words.key?(target)
       explore_current_words
     end
-    p build_path(target)
+    build_path(target)
   end
 
 
@@ -40,6 +45,12 @@ end
         end
       end
       @current_words = new_current_words
+      if @current_words.empty?
+       puts "Can't create a chain from #{@src} ... #{@target}."
+       print "would you like to try again? y/n "
+       gets.chomp.downcase == 'y' ? self.run :  abort
+
+     end
     end
 
     def adjacent_words(word)
@@ -57,4 +68,4 @@ end
 end
 
 chain_chainer = WordChainer.new('dictionary.txt')
-chain_chainer.run("duck", "ruby")
+p chain_chainer.run
