@@ -11,6 +11,7 @@ The program asks the user for the start and target word, and produces a word cha
 ### Here's an example:
 
 start = duck
+
 target = ruby
 
-[duck, ruck, rusk, ruse, rube, ruby]
+=> [duck, ruck, rusk, ruse, rube, ruby]
